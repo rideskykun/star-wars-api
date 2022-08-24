@@ -2,24 +2,33 @@ import './App.css';
 import React, {useEffect, useState} from 'react';
 import {Categories} from "./utils/datas";
 import {getService} from "./utils/RestService";
-import {camelCaseSpace, isURL} from "./utils/utils";
+import {camelCaseSpace, getParams, isURL, urlToParams} from "./utils/utils";
 
+
+const URL_ENDPOINT = 'https://swapi.dev/api/'
 function App() {
     //States
     const [category, setCategory] = useState('people')
     const [query, setQuery] = useState('')
     const [pageData, setPageData] = useState([])
+    const [pagination, setPagination] = useState(null)
+    const [param, setParam] = useState(0)
 
     //Hooks
     useEffect(()=>{
 
-        const URL_ENDPOINT = 'https://swapi.dev/api/'
+
         const fetchPageData = async() => {
             let url = URL_ENDPOINT + category + '/' + query
             const result = await getService(url)
 
             if(result){
                 setPageData(result.results)
+                setPagination({
+                    count: result.count,
+                    next: result.next,
+                    previous: result.previous
+                })
             }else{
                 setPageData([])
             }
@@ -110,6 +119,26 @@ function App() {
                             ))}
                             </tbody>
                         </table>
+                        {/*Pagination*/}
+                        <div className={'px-2 pt-2 flex justify-between'}>
+                            <div>
+                                {pagination.count} results {query?'| Page ' + query[query.length-1]:null}
+                            </div>
+                            <div className={'basis-1/6 md:basis-1/12 flex justify-between'}>
+                                <button
+                                    onClick={()=>setQuery(getParams(pagination.previous))}
+                                    disabled={!pagination.previous}
+                                    className={'bg-gray-300 rounded-full px-3 hover:bg-gray-400 disabled:bg-gray-100 disabled:text-gray-100'}>
+                                    &#x2770;
+                                </button>
+                                <button
+                                    onClick={()=>setQuery(getParams(pagination.next))}
+                                    disabled={!pagination.next}
+                                    className={'bg-gray-300 rounded-full px-3 hover:bg-gray-400 disabled:bg-gray-100 disabled:text-gray-100'}>
+                                    &#x2771;
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     :null
                 }
@@ -118,7 +147,9 @@ function App() {
             {/*More Details*/}
             <div className={'sm:hidden'}>
                 {/*Modal*/}
-                Focus Info mobile
+                <div className={'border'}>
+
+                </div>
 
             </div>
             <div className={'invisible sm:visible'}>

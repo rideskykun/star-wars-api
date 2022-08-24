@@ -16,3 +16,10 @@ export const isURL = (string) => {
 
     return url.protocol === "http:" || url.protocol === "https:";
 }
+export const urlToParams = (string) => {
+    let url = 'https://swapi.dev/api/'
+    return string.replace(url,'')
+}
+export const getParams = (string) => {
+    return string.slice(string.lastIndexOf('/')+1)
+}
