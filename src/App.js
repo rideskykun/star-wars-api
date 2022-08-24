@@ -1,14 +1,36 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Categories} from "./utils/datas";
+import {getService} from "./utils/RestService";
 
 function App() {
     //States
     const [category, setCategory] = useState('people')
-    const [tempResult, setTempResult] = useState('')
+    const [query, setQuery] = useState('')
+    const [pageData, setPageData] = useState([])
 
     //Hooks
+    useEffect(()=>{
+
+        const URL_ENDPOINT = 'https://swapi.dev/api/'
+        const fetchPageData = async() => {
+            let url = URL_ENDPOINT + category + '/' + query
+            const result = await getService(url)
+
+            if(result){
+                setPageData(result.results)
+            }else{
+                setPageData([])
+            }
+        }
+
+        fetchPageData().then(r => null)
+
+
+    },[query, category])
+    
     //Functions
+
 
     return (
         <div className={'p-3'}>
@@ -36,12 +58,20 @@ function App() {
 
             {/*Main Content*/}
             <div>
-                Table
                 <div>
-                    {tempResult.length>0?
-                        tempResult
+                    Search
+                    <input type="text" className={'w-full p-1 border rounded-full'}/>
+                </div>
+                <div>
+                    {pageData.length>0?
+                        'TEST'
                         :'No Results'
                     }
+                </div>
+                <div>
+                    <table>
+                        
+                    </table>
                 </div>
             </div>
 
