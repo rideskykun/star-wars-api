@@ -2,7 +2,7 @@ import './App.css';
 import React, {Fragment, useEffect, useState} from 'react';
 import {Categories} from "./utils/datas";
 import {getService} from "./utils/RestService";
-import {camelCaseSpace, getParams, isURL, urlToParams} from "./utils/utils";
+import {camelCaseSpace, isURL, urlToParams} from "./utils/utils";
 import {Modal} from "./components";
 
 
