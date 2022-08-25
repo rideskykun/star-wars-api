@@ -23,3 +23,13 @@ export const urlToParams = (string) => {
 export const getParams = (string) => {
     return string.slice(string.lastIndexOf('/')+1)
 }
+export const parseDate = (s, noTime = false) => {
+    let d = new Date(s);
+
+    let time = d.getHours() + ':' + (d.getMinutes()<10?'0':'') + d.getMinutes();
+    let date = d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
+
+    // return d.toLocaleString()
+    if(noTime) return date
+    else return date + ', ' + time;
+}

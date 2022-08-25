@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.detail-table button{
+    @apply underline hover:text-amber-500
+}
