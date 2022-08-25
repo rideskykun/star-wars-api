@@ -1,0 +1,12 @@
+.modal-bg{
+    @apply bg-black/75 fixed w-full h-full z-10 inset-0 flex justify-center items-center flex-col transition py-3
+}
+.modal-card{
+    @apply bg-white shadow-gray-500 overflow-auto rounded-lg w-11/12 p-2 max-h-fit md:w-2/3 lg:w-1/2
+}
+.modal-close{
+    @apply pt-3 w-full w-10/12 md:w-2/3 lg:w-1/2 text-white
+}
+.modal-close button{
+    @apply border-white border rounded-full w-full py-3 hover:bg-white hover:text-black transition
+}
